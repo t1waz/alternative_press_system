@@ -1,0 +1,386 @@
+<MainWindow>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 1,1,1, .80
+            Rectangle:
+                pos: root.pos
+                size: root.size
+        orientation: 'vertical'
+        color: (1,1,1,0)
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'vertical'
+            BoxLayout:
+                canvas.before:
+                    Color:
+                        rgba: 0,0,0, 0.75
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                orientation: 'horizontal'
+                size_hint: 1, .18
+                Label:
+                    text: '[b]PRESS SYSTEM[b]'
+                    markup: 'True'
+                    font_size: self.parent.width/20
+                Label:
+                    size_hint: 0.3 , 1
+                Image:
+                    source: 'logo.png'
+                    size_hint: 0.5 , 1
+                Label:
+                    size_hint: .1, 1
+            BoxLayout:
+                orientation: 'horizontal'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Label:
+                        size_hint: 1, .1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 1[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_1_mold_label
+                                    text: 'NONE'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_1_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_1_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 2[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_2_mold_label
+                                    text: 'NONE'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_2_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_2_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 3[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_3_mold_label
+                                    text: 'NONE'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_3_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_3_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                    BoxLayout:
+                        size_hint: 1,.2
+                        Label:
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 4[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_4_mold_label
+                                    text: 'NONE'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_4_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_4_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 5[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_5_mold_label
+                                    text: 'NONE'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_5_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_5_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: '[b]PRESS 6[b]'
+                                color: 0, 0, 0, 1
+                                font_size: self.parent.width/7
+                                text_size: self.size
+                                halign: 'center'
+                                markup: 'True'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_6_mold_label
+                                    text: 'FLAMINGO'
+                                    color: 0, 0, 0, .5
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_6_state_label
+                                    text: 'CLOSE'
+                                    color: 0, 0, 0, 1
+                                    font_size: self.parent.width/10
+                                    text_size: self.size
+                                    halign: 'center'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 1, 1
+                                Label:
+                                    id: press_6_time_label
+                                    text: '02:00:00'
+                                    color: 1, 0, 0, 1
+                                    font_size: self.parent.width/8
+                                    text_size: self.size
+                                    halign: 'center'
+                    Label:
+                        size_hint: 1, .15
+                    BoxLayout:
+                        size_hint: 1,.4
+                        orientation: 'horizontal'
+                        Label:
+                            size_hint: .075, 1
+                        Button:
+                            size_hint: .475,1
+                            text: 'EXIT'
+                            background_color: 0, .6156, .48235, 1
+                            background_normal: ''
+                            font_size: self.parent.width/40
+                            on_press:
+                        Label:
+                            size_hint: .05, 1
+                        Button:
+                            size_hint: .475,1
+                            text: 'SYS INFO'
+                            font_size: self.parent.width/40
+                            on_press:
+                        Label:
+                            size_hint: .05, 1
+                        Button:
+                            size_hint: .475,1
+                            text: 'PRODUCTION'
+                            font_size: self.parent.width/40
+                            on_press:
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                id: system_status
+                                text: 'STEADY'
+                                color: 0, .6156, .48235, 1
+                                font_size: self.parent.width/8
+                            Label:
+                                size_hint: 1,.1
+                    Label:
+                        size_hint: 1, .075
+<SysInfo>:
+    size_hint: 0.6, 1
+    title_align: 'center'
+    title: 'MODULES STATUS'
+    BoxLayout:
+        orientation: 'horizontal'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'INP12CH 1:'
+            Label:
+                text: 'INP12CH 2:'
+            Label:
+                text: 'INP12CH 3:'
+            Label:
+                text: 'INP12CH 4:'
+            Label:
+                text: 'INP12CH 5:'
+            Label:
+                text: 'INP12CH 6:'
+            Label:
+                text: 'REL6CH 1:'
+            Label:
+                text: 'REL6CH 2:'
+            Label:
+                text: 'REL6CH 3:'
+            Label:
+                text: 'REL6CH 4:'
+            Label:
+                text: 'REL6CH 5:'
+            Label:
+                text: 'REL6CH 6:'
+            Label:
+                text: 'SWITCHGEAR:'
+            Label:
+                text: 'PUMP:'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                id: INP12CH_1
+            Label:
+                id: INP12CH_2
+            Label:
+                id: INP12CH_3
+            Label:
+                id: INP12CH_4
+            Label:
+                id: INP12CH_5
+            Label:
+                id: INP12CH_6
+            Label:
+                id: REL6CH_1
+                text: 'NOT PRESENT'
+            Label:
+                id: REL6CH_2
+            Label:
+                id: REL6CH_3
+            Label:
+                id: REL6CH_4
+            Label:
+                id: REL6CH_5
+            Label:
+                id: REL6CH_6
+            Label:
+                id: REL6CH_switchgear
+            Label:
+                id: REL6CH_pump
