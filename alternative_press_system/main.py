@@ -20,22 +20,23 @@ class MasterModuleThread(threading.Thread):
 
     def run(self):
         while True:
-        	pass
+            pass
 
 
 class MainWindow(Screen):
+    # DECLARATE StringProperty for labels !
 
     def __init__(self, **kwargs):
         super(MainWindow,self).__init__(**kwargs)
 
 
 class PressApp(App):
-	def __init__(self, **kwargs):
-        super(ScanApp, self).__init__(**kwargs)
+    def __init__(self, **kwargs):
+        super(PressApp, self).__init__(**kwargs)
 
     def build(self):
-    	main_window = MainWindow()
-    	MasterModuleThread(main_window).start()
+        main_window = MainWindow()
+        MasterModuleThread(main_window).start()
         return main_window
 
 
