@@ -6,6 +6,7 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from service import AppService
 from control import MasterModule
+from kivy.properties import StringProperty
 import threading
 
 
@@ -24,7 +25,14 @@ class MasterModuleThread(threading.Thread):
 
 
 class MainWindow(Screen):
-    # DECLARATE StringProperty for labels !
+    system_status = StringProperty('')
+    for index in range(1,7):
+        mold = 'press_{}_mold_label'.format(index)
+        state = 'press_{}_state_label'.format(index)
+        time = 'press_{}_time_label'.format(index)
+        exec(mold + '  = StringProperty()')
+        exec(state + '  = StringProperty()')
+        exec(time + '  = StringProperty()')
 
     def __init__(self, **kwargs):
         super(MainWindow,self).__init__(**kwargs)
