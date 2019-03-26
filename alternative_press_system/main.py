@@ -21,8 +21,7 @@ class MasterModuleThread(threading.Thread):
 
     def run(self):
         while True:
-            pass
-
+            self.master_module.handle_control()
 
 class MainWindow(Screen):
     system_status = StringProperty('')
