@@ -1,18 +1,18 @@
 '''
 How communication looks like:
         S - switchgear
-        A-Z - status press 1
-        Z-B - time   press 1
-        B-Y - status press 2
-        Y-C - time   press 2
-        C-X - status press 3
-        X-D - time   press 3
-        D-W - status press 4
-        W-E - time   press 4
-        E-V - status press 5
-        V-F - time   press 5
-        F-U - status press 6
-        U-L - time   press 6
+        A-Z - status press 1 (value beetween two charts)
+        Z-B - time   press 1 (value beetween two charts)
+        B-Y - status press 2 (value beetween two charts)
+        Y-C - time   press 2 (value beetween two charts)
+        C-X - status press 3 (value beetween two charts)
+        X-D - time   press 3 (value beetween two charts)
+        D-W - status press 4 (value beetween two charts)
+        W-E - time   press 4 (value beetween two charts)
+        E-V - status press 5 (value beetween two charts)
+        V-F - time   press 5 (value beetween two charts)
+        F-U - status press 6 (value beetween two charts)
+        U-L - time   press 6 (value beetween two charts)
 '''
 PRESSES_INFO = [['A', 'Z', 'B'],
 				['B', 'Y', 'C'],

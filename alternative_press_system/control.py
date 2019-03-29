@@ -53,9 +53,6 @@ class MasterModule:
         except:
             return ''
 
-    def string_between_chars(self, string, start, end):
-        return string[string.index(start)+1: string.index(end)]
-
     def ask_data(self):
         self.serial_clear()
         self.serial_write('AE')
