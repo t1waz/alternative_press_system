@@ -56,13 +56,33 @@ class MasterModule:
     def ask_data(self):
         self.serial_clear()
         self.serial_write('AE')
-        time.sleep(0.1)
+        time.sleep(0.5)
         readed_data = self.serial_read()
 
         return readed_data
+
+    def open_press(self, press_id):
+        if str(press_id) < 2:
+            press_label = '0{}'.format(press_id)
+        else:
+            press_label = str(press_id)
+
+        self.serial_write('Z02')
+        time.sleep(1)
+        self.serial.clear()
+        self.serial_write('R{}'.format(press_label))
+        time.sleep(30)
+        self.serial_clear()
+        self.serial_write('A{}'.format(press_label))
+        time.sleep(6)
+        self.serial_clear()
+        self.serial_write('B{}'.format(press_label))
+        time.sleep(6)
+        self.serial_clear()
+        self.serial_write('Z01')
 
     def handle_control(self):
         if self.port:
             return self.ask_data()
         else:
-            return None
+            return ''

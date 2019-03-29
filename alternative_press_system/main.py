@@ -1,7 +1,6 @@
 import os
 os.environ['KIVY_GL_BACKEND'] = 'gl' # DUE TO RUNNING ON RASPI
 from kivy.app import App
-from kivy.uix.popup import Popup
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from service import AppService
@@ -22,7 +21,9 @@ class MasterModuleThread(threading.Thread):
     def run(self):
         while True:
             readed_data = self.master_module.handle_control()
-            self.app_service.label_handling(readed_data)
+            #'S0A0Z1000B0Y0C0X0D0W0E0V0F0U0L'
+            self.app_service.main_handling(readed_data)
+
 
 class MainWindow(Screen):
     system_status = StringProperty('')

@@ -15,26 +15,30 @@ How communication looks like:
         U-L - time   press 6 (value beetween two charts)
 '''
 PRESSES_INFO = [['A', 'Z', 'B'],
-				['B', 'Y', 'C'],
-				['C', 'X', 'D'],
-				['D', 'W', 'E'],
-				['E', 'V', 'F'],
-				['F', 'U', 'L']]
+                ['B', 'Y', 'C'],
+                ['C', 'X', 'D'],
+                ['D', 'W', 'E'],
+                ['E', 'V', 'F'],
+                ['F', 'U', 'L']]
 
-PRESS_STATE = ["READY",
-			   "CLOSING",
-			   "OPENING",
-			   "PRESSING",
-			   "OPEN"]
+PRESS_STATE = {
+    "0": "READY",
+    "1": "CLOSING",
+    "2": "OPENING",
+    "3": "PRESSING",
+    "4": "OPEN"
+}
 
-SWITCHGEAR_STATE = ["NONE",
-					"PRESS 1",
-					"PRESS 2",
-					"PRESS 3",
-					"PRESS 4",
-					"PRESS 5",
-					"PRESS 6",
-					"SWITCHING"]
+SWITCHGEAR_STATE = {
+    "0": "NONE",
+    "1": "PRESS 1",
+    "2": "PRESS 2",
+    "3": "PRESS 3",
+    "4": "PRESS 4",
+    "5": "PRESS 5",
+    "6": "PRESS 6",
+    "7": "SWITCHING"
+}
 
 NUMBER_OF_PRESSES = 6
 
