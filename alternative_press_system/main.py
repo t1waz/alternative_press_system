@@ -22,6 +22,7 @@ class MasterModuleThread(threading.Thread):
         while True:
             readed_data = self.master_module.handle_control()
             #'S0A0Z1000B0Y0C0X0D0W0E0V0F0U0L'
+            print(readed_data)
             self.app_service.main_handling(readed_data)
 
 

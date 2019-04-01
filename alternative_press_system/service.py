@@ -48,7 +48,7 @@ class AppService:
             time_already_pressed = int(string_between_chars(s=control_string,
                                                             start=info[1],
                                                             end=info[2]))
-            current_time = get_time_format(max(self.press_time[index] - time_already_pressed), 0)
+            current_time = get_time_format(self.press_time[index] - time_already_pressed)
             current_state = settings.PRESS_STATE.get(string_between_chars(s=control_string,
                                                                           start=info[0],
                                                                           end=info[1]), 'ERROR')

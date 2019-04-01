@@ -21,11 +21,19 @@ class MasterModule:
                                                   rtscts=True)
                 if self.MasterModule.isOpen():
                     self.MasterModule.close()
+                    print(port)
                 self.MasterModule = serial.Serial(port, 
                                                   115200,
                                                   dsrdtr=True,
                                                   rtscts=True)
                 self.port = True
+                print("port ", port)
+                time.sleep(1)
+                if (self.MasterModule.inWaiting() > 0):
+                    self.MasterModule.read(MasterModule.inWaiting())
+                    self.MasterModule.flush()
+                time.sleep(1)
+                break
             except serial.SerialException:
                 pass
 
@@ -47,11 +55,8 @@ class MasterModule:
             self.MasterModule.flush()
 
     def serial_read(self):
-        try:
-            return self.MasterModule.read(self.MasterModule.inWaiting()).decode(
+        return self.MasterModule.read(self.MasterModule.inWaiting()).decode(
                 encoding='UTF-8', errors='ignore').rstrip()
-        except:
-            return ''
 
     def ask_data(self):
         self.serial_clear()
