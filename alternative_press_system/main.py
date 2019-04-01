@@ -22,7 +22,8 @@ class MasterModuleThread(threading.Thread):
         while True:
             readed_data = self.master_module.handle_control()
             #'S0A0Z1000B0Y0C0X0D0W0E0V0F0U0L'
-            self.app_service.main_handling(readed_data)
+            print(readed_data)
+            self.app_service.main_handling('S0A0Z20000B0Y0C0X0D0W0E0V0F0U0L')
 
 
 class MainWindow(Screen):

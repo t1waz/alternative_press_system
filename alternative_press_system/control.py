@@ -8,6 +8,15 @@ class MasterModule:
         self.switchgear_status = 0
         self.init_connection()
 
+    def serial_clear(self):
+        if (self.MasterModule.inWaiting() > 0):
+            try:
+                self.MasterModule.read(self.MasterModule.inWaiting())
+                time.sleep(0.05)
+            except:
+                pass
+            self.MasterModule.flush()
+
     def init_connection(self):
         _ports_usb = ['/dev/ttyUSB{}'.format(number) for number in range(0, 20)]
         _ports_acm = ['/dev/ttyACM{}'.format(number) for number in range(0, 20)]
@@ -26,6 +35,10 @@ class MasterModule:
                                                   dsrdtr=True,
                                                   rtscts=True)
                 self.port = True
+                time.sleep(0.5)
+                self.serial_clear()
+                time.sleep(0.5)
+                break
             except serial.SerialException:
                 pass
 
@@ -36,15 +49,6 @@ class MasterModule:
     def serial_write(self, data_to_send):
         self.MasterModule.write(str(data_to_send).encode('utf-8'))
         self.MasterModule.flush()
-
-    def serial_clear(self):
-        if (self.MasterModule.inWaiting() > 0):
-            try:
-                self.MasterModule.read(self.MasterModule.inWaiting())
-                time.sleep(0.05)
-            except:
-                pass
-            self.MasterModule.flush()
 
     def serial_read(self):
         try:
