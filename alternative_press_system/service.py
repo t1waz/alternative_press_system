@@ -39,7 +39,6 @@ class AppService:
     def handle_labels_from_control_string(self, control_string):
         if not control_string.startswith('S'):
             return 
-
         switchgear = settings.SWITCHGEAR_STATE.get(string_between_chars(s=control_string,
                                                                         start='S',
                                                                         end='A'), 'ERROR')
@@ -48,7 +47,8 @@ class AppService:
             time_already_pressed = int(string_between_chars(s=control_string,
                                                             start=info[1],
                                                             end=info[2]))
-            current_time = get_time_format(self.press_time[index] - time_already_pressed)
+            time_diff = max(self.press_time[index] - time_already_pressed,0)
+            current_time = get_time_format(time_diff)
             current_state = settings.PRESS_STATE.get(string_between_chars(s=control_string,
                                                                           start=info[0],
                                                                           end=info[1]), 'ERROR')

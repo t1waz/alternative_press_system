@@ -8,6 +8,15 @@ class MasterModule:
         self.switchgear_status = 0
         self.init_connection()
 
+    def serial_clear(self):
+        if (self.MasterModule.inWaiting() > 0):
+            try:
+                self.MasterModule.read(self.MasterModule.inWaiting())
+                time.sleep(0.05)
+            except:
+                pass
+            self.MasterModule.flush()
+
     def init_connection(self):
         _ports_usb = ['/dev/ttyUSB{}'.format(number) for number in range(0, 20)]
         _ports_acm = ['/dev/ttyACM{}'.format(number) for number in range(0, 20)]
@@ -21,18 +30,14 @@ class MasterModule:
                                                   rtscts=True)
                 if self.MasterModule.isOpen():
                     self.MasterModule.close()
-                    print(port)
                 self.MasterModule = serial.Serial(port, 
                                                   115200,
                                                   dsrdtr=True,
                                                   rtscts=True)
                 self.port = True
-                print("port ", port)
-                time.sleep(1)
-                if (self.MasterModule.inWaiting() > 0):
-                    self.MasterModule.read(MasterModule.inWaiting())
-                    self.MasterModule.flush()
-                time.sleep(1)
+                time.sleep(0.5)
+                self.serial_clear()
+                time.sleep(0.5)
                 break
             except serial.SerialException:
                 pass
@@ -45,18 +50,12 @@ class MasterModule:
         self.MasterModule.write(str(data_to_send).encode('utf-8'))
         self.MasterModule.flush()
 
-    def serial_clear(self):
-        if (self.MasterModule.inWaiting() > 0):
-            try:
-                self.MasterModule.read(self.MasterModule.inWaiting())
-                time.sleep(0.05)
-            except:
-                pass
-            self.MasterModule.flush()
-
     def serial_read(self):
-        return self.MasterModule.read(self.MasterModule.inWaiting()).decode(
+        try:
+            return self.MasterModule.read(self.MasterModule.inWaiting()).decode(
                 encoding='UTF-8', errors='ignore').rstrip()
+        except:
+            return ''
 
     def ask_data(self):
         self.serial_clear()
