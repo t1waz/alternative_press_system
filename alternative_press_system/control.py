@@ -1,12 +1,21 @@
 import serial
 import time
 import settings
-
+from utils import threaded
+import queue
 
 class MasterModule:
     def __init__(self):
         self.switchgear_status = 0
+        self.is_opening = False
+        self.port = False
+        self.queue_tx = queue.Queue()
+        self.queue_rx = queue.Queue()
+        self.is_open = [False] * settings.NUMBER_OF_PRESSES
+        self.is_openning = False
+        self.readed_status = ''
         self.init_connection()
+        self.ask_data()
 
     def serial_clear(self):
         if (self.MasterModule.inWaiting() > 0):
@@ -21,7 +30,6 @@ class MasterModule:
         _ports_usb = ['/dev/ttyUSB{}'.format(number) for number in range(0, 20)]
         _ports_acm = ['/dev/ttyACM{}'.format(number) for number in range(0, 20)]
         _ports = _ports_usb + _ports_acm
-        self.port = False
         for port in _ports:
             try:
                 self.MasterModule = serial.Serial(port, 
@@ -48,6 +56,7 @@ class MasterModule:
 
     def serial_write(self, data_to_send):
         self.MasterModule.write(str(data_to_send).encode('utf-8'))
+        time.sleep(0.05)
         self.MasterModule.flush()
 
     def serial_read(self):
@@ -55,38 +64,67 @@ class MasterModule:
             return self.MasterModule.read(self.MasterModule.inWaiting()).decode(
                 encoding='UTF-8', errors='ignore').rstrip()
         except:
-            return ''
+            return None
 
+    def read_queue_tx(self):
+        try:
+            command = self.queue_tx.get(block=False)
+        except (queue.Empty,):
+            command = None
+
+        return command
+
+    def read_queue_rx(self):
+        try:
+            command = self.queue_rx.get(block=False)
+        except (queue.Empty,):
+            command = None
+
+        return command  
+
+    def handle_queue_rx(self, command, sleep_time):
+        while self.read_queue_rx() != command:
+            self.queue_tx.put(command)
+            time.sleep(sleep_time)
+
+
+    @threaded
     def ask_data(self):
-        self.serial_clear()
-        self.serial_write('AE')
-        time.sleep(0.5)
-        readed_data = self.serial_read()
+        while self.port:
+            self.serial_clear()
+            self.serial_write('AE')
+            self.readed_status = self.serial_read() or ''
 
-        return readed_data
+            readed_data = None
+            command = self.read_queue_tx()
+            if command:
+                self.serial_write(command)
+                rx_data = self.serial_read()
+                if rx_data:
+                    self.queue_rx.put(rx_data)
 
+            time.sleep(0.5)
+  
+    @threaded
     def open_press(self, press_id):
-        if str(press_id) < 2:
-            press_label = '0{}'.format(press_id)
-        else:
-            press_label = str(press_id)
+        press_label = str(press_id).zfill(2)
 
-        self.serial_write('Z02')
-        time.sleep(1)
-        self.serial.clear()
-        self.serial_write('R{}'.format(press_label))
-        time.sleep(30)
-        self.serial_clear()
-        self.serial_write('A{}'.format(press_label))
-        time.sleep(6)
-        self.serial_clear()
-        self.serial_write('B{}'.format(press_label))
-        time.sleep(6)
-        self.serial_clear()
-        self.serial_write('Z01')
+        self.is_open[press_id] = False
 
-    def handle_control(self):
-        if self.port:
-            return self.ask_data()
-        else:
-            return ''
+        while not self.is_open[press_id]:
+            if self.is_opening == False:
+                self.is_opening = True
+                
+                self.handle_queue_rx('Z02', 1)
+                self.handle_queue_rx('R{}'.format(press_label), 10)
+                self.handle_queue_rx('A{}'.format(press_label), 6)
+                self.handle_queue_rx('B02', 6)
+                self.handle_queue_rx('Z01', 1)
+
+                self.is_opening = False
+                self.is_open[press_id] = True
+
+    def get_status_string(self):
+
+        return self.readed_status
+
