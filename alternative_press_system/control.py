@@ -11,11 +11,11 @@ class MasterModule:
         self.port = False
         self.queue_tx = queue.Queue()
         self.queue_rx = queue.Queue()
-        self.is_open = [False] * settings.NUMBER_OF_PRESSES
+        self.is_open = [True] * settings.NUMBER_OF_PRESSES
         self.is_openning = False
         self.readed_status = ''
         self.init_connection()
-        self.ask_data()
+        self.main_handling()
 
     def serial_clear(self):
         if (self.MasterModule.inWaiting() > 0):
@@ -89,7 +89,7 @@ class MasterModule:
 
 
     @threaded
-    def ask_data(self):
+    def main_handling(self):
         while self.port:
             self.serial_clear()
             self.serial_write('AE')
@@ -103,21 +103,24 @@ class MasterModule:
                 if rx_data:
                     self.queue_rx.put(rx_data)
 
-            time.sleep(0.5)
+            time.sleep(0.1)
   
     @threaded
     def open_press(self, press_id):
-        press_label = str(press_id).zfill(2)
-
         self.is_open[press_id] = False
+
+        press_label = str(press_id+1).zfill(2)
+
+        while self.is_opening:
+            pass
 
         while not self.is_open[press_id]:
             if self.is_opening == False:
                 self.is_opening = True
                 
                 self.handle_queue_rx('Z02', 1)
-                self.handle_queue_rx('R{}'.format(press_label), 10)
-                self.handle_queue_rx('A{}'.format(press_label), 6)
+                self.handle_queue_rx('R{}'.format(press_label), 30)
+                self.handle_queue_rx('A{}'.format(press_label), 15)
                 self.handle_queue_rx('B02', 6)
                 self.handle_queue_rx('Z01', 1)
 
@@ -127,4 +130,8 @@ class MasterModule:
     def get_status_string(self):
 
         return self.readed_status
+
+    def get_presses_open_state(self):
+
+        return self.is_open
 

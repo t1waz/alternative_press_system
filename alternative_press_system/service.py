@@ -56,14 +56,14 @@ class AppService:
 
     def main_handling(self):
         readed_string = self.master_module.get_status_string()
+        presses_is_open = self.master_module.get_presses_open_state()
+
         self.handle_labels_from_control_string(readed_string)
         print(readed_string)
-        for each in self.current_time:
-            if each == 0:
-                if self.is_opening == False:
-                    self.master_module.open_press(2)
-                    self.master_module.open_press(4)
-                    self.is_opening = True
+        for inex, remaining_time in enumerate(self.current_time):
+            if remaining_time == 0:
+                if presses_is_open[index] == True:
+                    self.master_module.open_press(index)
 
 
 
