@@ -4,16 +4,17 @@ import settings
 from utils import threaded
 import queue
 
+
 class MasterModule:
     def __init__(self):
-        self.switchgear_status = 0
-        self.is_opening = False
         self.port = False
         self.queue_tx = queue.Queue()
         self.queue_rx = queue.Queue()
         self.is_open = [True] * settings.NUMBER_OF_PRESSES
-        self.is_openning = False
+        self.is_opening = False
         self.readed_status = ''
+        self.state_ask_counter = 100
+        self.state = ''
         self.init_connection()
         self.main_handling()
 
@@ -87,37 +88,51 @@ class MasterModule:
             self.queue_tx.put(command)
             time.sleep(sleep_time)
 
+    def get_presses_states(self):
+        self.serial_clear()
+        self.serial_write('AE')
+        
+        self.readed_status = self.serial_read() or ''
+
+    def handle_commands(self):
+        command = self.read_queue_tx()
+        if command:
+            self.serial_write(command)
+            rx_data = self.serial_read()
+            if rx_data:
+                self.queue_rx.put(rx_data)
 
     @threaded
     def main_handling(self):
         while self.port:
-            self.serial_clear()
-            self.serial_write('AE')
-            self.readed_status = self.serial_read() or ''
+            self.get_presses_states()
 
-            readed_data = None
-            command = self.read_queue_tx()
-            if command:
-                self.serial_write(command)
-                rx_data = self.serial_read()
-                if rx_data:
-                    self.queue_rx.put(rx_data)
+            self.handle_commands()
+
+            if self.state_ask_counter > 100:
+                self.state_ask_counter = 0
+                self.serial_write('ST')
+                self.state = self.serial_read() or ''
+                print(self.state)
+            else:
+                self.state_ask_counter += 1
 
             time.sleep(0.1)
-  
+
     @threaded
     def open_press(self, press_id):
-        self.is_open[press_id] = False
-
-        press_label = str(press_id+1).zfill(2)
+        press_label = str(press_id + 1).zfill(2)
 
         while self.is_opening:
+            # wait to finish opening another press
             pass
 
+        self.is_open[press_id] = False
+
         while not self.is_open[press_id]:
-            if self.is_opening == False:
+            if not self.is_opening:
                 self.is_opening = True
-                
+
                 self.handle_queue_rx('Z02', 1)
                 self.handle_queue_rx('R{}'.format(press_label), 30)
                 self.handle_queue_rx('A{}'.format(press_label), 15)
@@ -130,8 +145,3 @@ class MasterModule:
     def get_status_string(self):
 
         return self.readed_status
-
-    def get_presses_open_state(self):
-
-        return self.is_open
-

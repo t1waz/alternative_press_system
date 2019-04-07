@@ -1,12 +1,12 @@
 import os
-os.environ['KIVY_GL_BACKEND'] = 'gl' # DUE TO RUNNING ON RASPI
+os.environ['KIVY_GL_BACKEND'] = 'gl'                # DUE TO RUNNING ON RASPI
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from service import AppService
 from kivy.properties import StringProperty
 import threading
-import time
+from time import sleep
 
 Builder.load_file('graphic.kv')
 
@@ -20,12 +20,12 @@ class MasterModuleThread(threading.Thread):
     def run(self):
         while True:
             self.app_service.main_handling()
-            time.sleep(0.5)
+            sleep(0.5)
 
 
 class MainWindow(Screen):
     system_status = StringProperty('')
-    for index in range(1,7):
+    for index in range(1, 7):
         mold = 'press_{}_mold_label'.format(index)
         state = 'press_{}_state_label'.format(index)
         time = 'press_{}_time_label'.format(index)
@@ -34,7 +34,7 @@ class MainWindow(Screen):
         exec(time + '  = StringProperty()')
 
     def __init__(self, **kwargs):
-        super(MainWindow,self).__init__(**kwargs)
+        super(MainWindow, self).__init__(**kwargs)
 
 
 class PressApp(App):

@@ -6,15 +6,16 @@ import threading
 
 def string_between_chars(s, start, end):
     try:
-        return s[s.index(start)+1: s.index(end)]
+        return s[s.index(start) + 1:s.index(end)]
     except (IndexError,):
         return ''
 
+
 def get_time_format(seconds):
     try:
-        hours = int(seconds/3600)
-        minutes = int((seconds - hours*3600)/60)
-        seconds = seconds - hours*3600 - minutes*60
+        hours = int(seconds / 3600)
+        minutes = int((seconds - hours * 3600) / 60)
+        seconds = seconds - hours * 3600 - minutes * 60
 
         return '{}:{}:{}'.format(str(hours).zfill(2),
                                  str(minutes).zfill(2),
@@ -22,7 +23,8 @@ def get_time_format(seconds):
     except:
         return '00:00:00'
 
+
 def threaded(fn):
     def wrapper(*args, **kwargs):
-        t = threading.Thread(target=fn, args=args, kwargs=kwargs).start()
+        threading.Thread(target=fn, args=args, kwargs=kwargs).start()
     return wrapper
