@@ -280,7 +280,7 @@
                             size_hint: .475,1
                             text: 'SYS INFO'
                             font_size: self.parent.width/40
-                            on_press:
+                            on_press: root.show_info()
                         Label:
                             size_hint: .05, 1
                         Button:
@@ -298,70 +298,22 @@
                                 size_hint: 1,.1
                     Label:
                         size_hint: 1, .075
-<SysInfo>:
-    size_hint: 0.6, 1
+<MessageWindow>:
+    message_input: input_message
+    message_relay: relay_message
+    size_hint: 0.7, 0.7
     title_align: 'center'
     title: 'MODULES STATUS'
     BoxLayout:
         orientation: 'horizontal'
+        Label:
+            size_hint: .4, 1
         BoxLayout:
+            id: input_message
             orientation: 'vertical'
-            Label:
-                text: 'INP12CH 1:'
-            Label:
-                text: 'INP12CH 2:'
-            Label:
-                text: 'INP12CH 3:'
-            Label:
-                text: 'INP12CH 4:'
-            Label:
-                text: 'INP12CH 5:'
-            Label:
-                text: 'INP12CH 6:'
-            Label:
-                text: 'REL6CH 1:'
-            Label:
-                text: 'REL6CH 2:'
-            Label:
-                text: 'REL6CH 3:'
-            Label:
-                text: 'REL6CH 4:'
-            Label:
-                text: 'REL6CH 5:'
-            Label:
-                text: 'REL6CH 6:'
-            Label:
-                text: 'SWITCHGEAR:'
-            Label:
-                text: 'PUMP:'
         BoxLayout:
+            id: relay_message
             orientation: 'vertical'
-            Label:
-                id: INP12CH_1
-            Label:
-                id: INP12CH_2
-            Label:
-                id: INP12CH_3
-            Label:
-                id: INP12CH_4
-            Label:
-                id: INP12CH_5
-            Label:
-                id: INP12CH_6
-            Label:
-                id: REL6CH_1
-                text: 'NOT PRESENT'
-            Label:
-                id: REL6CH_2
-            Label:
-                id: REL6CH_3
-            Label:
-                id: REL6CH_4
-            Label:
-                id: REL6CH_5
-            Label:
-                id: REL6CH_6
-            Label:
-                id: REL6CH_switchgear
-            Label:
-                id: REL6CH_pump
+        Label:
+            size_hint: .4, 1
+

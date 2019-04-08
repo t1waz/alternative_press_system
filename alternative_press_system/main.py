@@ -4,9 +4,14 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from service import AppService
-from kivy.properties import StringProperty
 import threading
 from time import sleep
+from kivy.uix.popup import Popup
+from kivy.uix.label import Label
+from kivy.properties import (StringProperty,
+    ObjectProperty,
+    ListProperty )
+
 
 Builder.load_file('graphic.kv')
 
@@ -23,8 +28,17 @@ class MasterModuleThread(threading.Thread):
             sleep(0.5)
 
 
+class MessageWindow(Popup):
+    message_box = ObjectProperty()
+
+    def __init__(self, **kwargs):
+        super(MessageWindow, self).__init__(**kwargs)
+
+
 class MainWindow(Screen):
     system_status = StringProperty('')
+    message_labels_input_modules = ListProperty()
+    message_labels_relay_modules = ListProperty()
     for index in range(1, 7):
         mold = 'press_{}_mold_label'.format(index)
         state = 'press_{}_state_label'.format(index)
@@ -36,9 +50,36 @@ class MainWindow(Screen):
     def __init__(self, **kwargs):
         super(MainWindow, self).__init__(**kwargs)
 
+    def show_info(self, *args):
+        message_window = MessageWindow()
+        message_window.message_input.add_widget(Label())
+        message_window.message_relay.add_widget(Label())
+
+        for each in self.message_labels_input_modules:
+            if 'ACTIVE' in each:
+                color = (0,1,0,1)
+            else:
+                color = (1,0,0,1)
+            message_window.message_input.add_widget(Label(text=each,
+                                                          color=color))
+
+        for each in self.message_labels_relay_modules:
+            if 'ACTIVE' in each:
+                color = (0,1,0,1)
+            else:
+                color = (1,0,0,1)
+            message_window.message_relay.add_widget(Label(text=each,
+                                                          color=color))
+
+        message_window.message_input.add_widget(Label())
+        message_window.message_relay.add_widget(Label())
+
+        message_window.open()
+
 
 class PressApp(App):
     def __init__(self, **kwargs):
+
         super(PressApp, self).__init__(**kwargs)
 
     def build(self):

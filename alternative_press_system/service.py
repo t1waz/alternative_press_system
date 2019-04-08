@@ -18,6 +18,31 @@ class AppService:
     def set_label(self, label, value):
         setattr(self.my_app, label, value)
 
+    def init_state_message_window(self):
+        state_string = self.master_module.get_state_string()
+        active_input_modules = string_between_chars(s=state_string,
+                                                    start='I',
+                                                    end='R')
+        active_relay_modules = string_between_chars(s=state_string,
+                                                    start='R',
+                                                    end='L')
+
+        try:
+            input_string = str(bin(int(active_input_modules))[2:]).zfill(settings.NUMBER_OF_PRESSES)[::-1]
+            relay_string = str(bin(int(active_relay_modules))[2:]).zfill(settings.NUMBER_OF_PRESSES)[::-1]
+        except:
+            input_string = ''
+            relay_string = ''
+
+        input_modules_status = ['ACTIVE' if status == '1' else 'DISABLE' for status in list(input_string)]
+        relay_modules_status = ['ACTIVE' if status == '1' else 'DISABLE' for status in list(relay_string)]
+
+        for index, status in enumerate(input_modules_status):
+            self.my_app.message_labels_input_modules.append('INP {}      {}'.format(index + 1, status))
+        
+        for index, status in enumerate(relay_modules_status):
+            self.my_app.message_labels_relay_modules.append('REL {}      {}'.format(index + 1, status))
+
     def init_values(self):
         presses = self.api.get_endpoint_data('presses')
         self.set_label('system_status', 'STARTING')
@@ -29,6 +54,8 @@ class AppService:
             self.set_label('press_{}_mold_label'.format(index + 1), press['mold'])
             self.set_label('press_{}_time_label'.format(index + 1), time)
             self.set_label('press_{}_state_label'.format(index + 1), 'READY')
+
+        self.init_state_message_window()
 
     def handle_labels_from_control_string(self, control_string):
         if not control_string:
@@ -65,3 +92,4 @@ class AppService:
                     self.is_open_started[index] = True
             else:
                 self.is_open_started[index] = False
+

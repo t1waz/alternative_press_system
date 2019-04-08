@@ -7,7 +7,7 @@ import threading
 def string_between_chars(s, start, end):
     try:
         return s[s.index(start) + 1:s.index(end)]
-    except (IndexError,):
+    except (IndexError, ValueError):
         return ''
 
 

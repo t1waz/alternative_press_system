@@ -113,7 +113,6 @@ class MasterModule:
                 self.state_ask_counter = 0
                 self.serial_write('ST')
                 self.state = self.serial_read() or ''
-                print(self.state)
             else:
                 self.state_ask_counter += 1
 
@@ -145,3 +144,7 @@ class MasterModule:
     def get_status_string(self):
 
         return self.readed_status
+
+    def get_state_string(self):
+
+        return self.state
