@@ -43,7 +43,7 @@ class AppService:
         for index, status in enumerate(relay_modules_status):
             self.my_app.message_labels_relay_modules.append('REL {}      {}'.format(index + 1, status))
 
-    def init_values(self):
+    def init_times_and_molds(self):
         presses = self.api.get_endpoint_data('presses')
         self.set_label('system_status', 'STARTING')
         for index, press in enumerate(presses):
@@ -53,8 +53,10 @@ class AppService:
 
             self.set_label('press_{}_mold_label'.format(index + 1), press['mold'])
             self.set_label('press_{}_time_label'.format(index + 1), time)
-            self.set_label('press_{}_state_label'.format(index + 1), 'READY')
+            self.set_label('press_{}_state_label'.format(index + 1), 'READY')    
 
+    def init_values(self):
+        self.init_times_and_molds()
         self.init_state_message_window()
 
     def handle_labels_from_control_string(self, control_string):

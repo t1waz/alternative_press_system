@@ -21,11 +21,16 @@ class MasterModuleThread(threading.Thread):
         threading.Thread.__init__(self)
         self.app_service = AppService(my_app)
         self.is_opening = False
+        self.counter = 0
 
     def run(self):
         while True:
             self.app_service.main_handling()
             sleep(0.5)
+            self.counter += 1
+            if self.counter > 10:
+                self.app_service.init_times_and_molds()
+                self.counter = 0
 
 
 class MessageWindow(Popup):
