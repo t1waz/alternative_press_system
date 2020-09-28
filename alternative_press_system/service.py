@@ -7,7 +7,7 @@ from copy import deepcopy
 
 class AppService:
     def __init__(self, my_app):
-        self.api = ApiService()
+#        self.api = ApiService()
         self.master_module = MasterModule()
         self.my_app = my_app
         self.press_time = [0] * settings.NUMBER_OF_PRESSES
@@ -44,9 +44,9 @@ class AppService:
             self.my_app.message_labels_relay_modules.append('REL {}      {}'.format(index + 1, status))
 
     def init_times_and_molds(self):
-        presses = self.api.get_endpoint_data('presses')
+#        presses = self.api.get_endpoint_data('presses')
         self.set_label('system_status', 'STARTING')
-        for index, press in enumerate(presses):
+        for index, press in enumerate(settings.PRESSES):
             self.press_time[index] = deepcopy(int(press['press_time']))
             self.current_time[index] = deepcopy(int(press['press_time']))
             time = get_time_format(self.press_time[index])

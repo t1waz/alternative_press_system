@@ -80,7 +80,6 @@ class MasterModule:
             command = self.queue_rx.get(block=False)
         except (queue.Empty,):
             command = None
-
         return command  
 
     def handle_queue_rx(self, command, sleep_time):

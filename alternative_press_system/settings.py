@@ -45,3 +45,36 @@ NUMBER_OF_PRESSES = 6
 BACKEND_ACCESS_TOKEN = '123dupachujpietaszekalternativelongboardspiotrekkurwa'
 
 BACKEND_URL = '178.183.151.29:5000'
+
+PRESSES = [
+    {
+        "name": "A",
+        "mold": "Fantail",
+        "press_time": 7200,
+    },
+    {
+        "name": "B",
+        "mold": "Ostrich",
+        "press_time": 7200,
+    },
+    {
+        "name": "C",
+        "mold": "Karoo",
+        "press_time": 7200,
+    },
+    {
+        "name": "D",
+        "mold": "Flamingo",
+        "press_time": 7200,
+    },
+    {
+        "name": "E",
+        "mold": "Erget",
+        "press_time": 7200,
+    },
+    {
+        "name": "F",
+        "mold": "Chauma M",
+        "press_time": 7200,
+    },        
+]

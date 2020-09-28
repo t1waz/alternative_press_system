@@ -56,8 +56,7 @@ class MainWindow(Screen):
         super(MainWindow, self).__init__(**kwargs)
 
     def exit(self, *args, **kwargs):
-        sys.exit()
-        App.get_running_app().stop()        
+                
 
     def show_info(self, *args):
         message_window = MessageWindow()
@@ -99,4 +98,3 @@ class PressApp(App):
 
 if __name__ == '__main__':
     PressApp().run()
-    os._exit(1)    
